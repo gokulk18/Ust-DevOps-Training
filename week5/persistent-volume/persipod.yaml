@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: persi-deploy
+  name: persi-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: persi-deploy
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: persi-deploy
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: persi
+        
+      volumes:
+        - name: persi
+          persistentVolumeClaim:
+            claimName: my-pvc
+status: {}

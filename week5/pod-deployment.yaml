@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: sample-pod
+
+spec:
+  containers:
+    - name: pod-container
+      image: ubuntu
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - mountPath: "/tmp/hostpath"
+          name: hostpath
+
+
+    - name: pod-container2
+      image: ubuntu
+      command: ["sleep","3600"]
+      volumeMounts:
+        - mountPath: "/tmp/hostpath"
+          name: hostpath
+
+  volumes:
+    - name: hostpath
+      hostPath:
+        path: "/tmp/hostpath"
+        type: DirectoryOrCreate
+
+
