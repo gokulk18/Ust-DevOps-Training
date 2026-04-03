@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-deployment
+  labels:
+    app: spring-app
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: spring-app
+
+  template:
+    metadata:
+      labels:
+        app: spring-app
+    spec:
+      containers:
+        - name: spring-container
+          image: googleyy/spring-image:v1
+          envFrom:
+            - configMapRef:
+                name: spring-env1
+          ports:
+            - containerPort: 8080
